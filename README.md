@@ -1,29 +1,34 @@
-# MigratingToJetpackCompose
+# Migrating To Jetpack Compose
 Adding Jetpack Compose to your app 
 
 If you want to use Jetpack Compose in an existing project, you’ll need to configure your project with the required settings and dependencies.
 Set up your development environment
-Install the right Android Studio version
 
-buildscript {
-    ...
+# Install the right Android Studio Version
+
+
+```
+buildscript
+
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.0"
-        ...
+        classpath "com.android.tools.build:gradle:7.0.0"      
     }
 }
+```
 
 
-Configure Kotlin
-Make sure you're using Kotlin 1.5.21 in your project:
-
+# Configure Kotlin
+### Make sure you're using Kotlin 1.5.21 in your project:
+```
 plugins {
     id 'org.jetbrains.kotlin:android' version '1.5.21'
 }
+```
 
-Configure Gradle
-You need to set your app’s minimum API level to 21 or higher and enable Jetpack Compose in your app's build.gradle file, as shown below. Also set the version for the Kotlin compiler plugin.
+# Configure Gradle
+### You need to set your app’s minimum API level to 21 or higher and enable Jetpack Compose in your app's build.gradle file, as shown below. Also set the version for the Kotlin compiler plugin.
 
+```
 android {
     defaultConfig {
         ...
@@ -49,11 +54,12 @@ android {
         kotlinCompilerExtensionVersion '1.0.1'
     }
 }
+```
 
 
-Add Jetpack Compose toolkit dependencies
-Include Jetpack Compose toolkit dependencies in your app’s build.gradle file, as shown below:
-
+# Add Jetpack Compose toolkit dependencies
+### Include Jetpack Compose toolkit dependencies in your app’s build.gradle file, as shown below:
+```
 dependencies {
     // Integration with activities
     implementation 'androidx.activity:activity-compose:1.3.1'
@@ -68,18 +74,20 @@ dependencies {
     // UI Tests
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.0.1'
 }
+```
 
 
 
-Reuse your View theme in Compose
-If you just added Compose to your project, you might want Compose to inherit the themes available in the View system instead of rewriting your own Material theme in Compose from scratch.
-
+# Reuse your View theme in Compose
+**If you just added Compose to your project, you might want Compose to inherit the themes available in the View system instead of rewriting your own Material theme in Compose from scratch.
+**
 If you're using the MDC library in your Android app, the MDC Compose Theme Adapter library allows you to easily re-use the color, typography and shape theming from your existing View-based themes, in your composables. That's achieved using the MdcTheme API.
 
-If you're using AppCompat XML themes instead, use the AppCompat Compose Theme Adapter that contains the AppCompatTheme API.
+**If you're using AppCompat XML themes instead, use the AppCompat Compose Theme Adapter that contains the AppCompatTheme API.
+**
+# Include the dependency you need in your app’s build.gradle file, as shown below:
 
-Include the dependency you need in your app’s build.gradle file, as shown below:
-
+```
 dependencies {
     // When using a MDC theme
     implementation "com.google.android.material:compose-theme-adapter:1.0.1"
@@ -87,11 +95,13 @@ dependencies {
     // When using a AppCompat theme
     implementation "com.google.accompanist:accompanist-appcompat-theme:0.16.0"
 }
+```
 
 
 
-To migrate it to Compose, we can replace the View with a ComposeView keeping the same layout parameters and id:
+# To migrate it to Compose, we can replace the View with a ComposeView keeping the same layout parameters and id:
 
+```
 <...>
     <!-- Other content -->
 
@@ -101,9 +111,12 @@ To migrate it to Compose, we can replace the View with a ComposeView keeping the
         android:layout_height="wrap_content"/>
 </...>
 
+```
 
-Then, in either the Activity or Fragment that uses that XML layout, we get the ComposeView from it and call the setContent method to add Compose content into it:
 
+### Then, in either the Activity or Fragment that uses that XML layout, we get the ComposeView from it and call the setContent method to add Compose content into it:
+
+```
 class MyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -129,3 +142,4 @@ private fun Greeting() {
             .wrapContentWidth(Alignment.CenterHorizontally)
     )
 }
+```
