@@ -1,7 +1,7 @@
 # MigratingToJetpackCompose
 Adding Jetpack Compose to your app 
 
-If you want to use Jetpack Compose in an existing project, you’ll need to configure your project with required settings and dependencies.
+If you want to use Jetpack Compose in an existing project, you’ll need to configure your project with the required settings and dependencies.
 Set up your development environment
 Install the right Android Studio version
 
